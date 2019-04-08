@@ -1,6 +1,10 @@
 .users-title {
   margin-bottom: 0.5em;
 }
+.forTest:hover {
+  color: rebeccapurple;
+  cursor: pointer;
+}
 .users-list-item {
   margin-bottom: 1em;
 }

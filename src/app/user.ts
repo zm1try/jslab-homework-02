@@ -1,7 +1,7 @@
 import { Homework } from './homework';
 
 export class User {
-  private id: number;
+  public id: number;
   public name: string;
   public surname: string;
   public list: Homework[];
