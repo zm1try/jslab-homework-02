@@ -1,0 +1,12 @@
+<h2 class="users-title">List of users</h2>
+<ul class="users-list">
+  <li
+    *ngFor="let user of users"
+    class="users-list-item">
+    <h3 class="users-list-item-title">{{user.name}} {{user.surname}}</h3>
+    <app-homeworks
+      class="users-list-item-homeworks"
+      [user]="user"
+    ></app-homeworks>
+  </li>
+</ul>
