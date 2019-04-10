@@ -41,7 +41,7 @@ module.exports = ".app-title {\r\n  text-align: center;\r\n  margin-top: 0.5em;\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1 class=\"app-title\">Welcome to {{ title }}!</h1>\n<app-users class=\"container\"></app-users>\n"
+module.exports = "<h1 class=\"app-title\">Welcome to {{ title }}!</h1>\r\n<app-users class=\"container\"></app-users>\r\n"
 
 /***/ }),
 
@@ -164,7 +164,7 @@ module.exports = ".complited {\r\n  color: green;\r\n}\r\n.notComplited {\r\n  c
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div  *ngIf=\"user\">\n  <h4\n    [class.complited]=\"allIsDone\"\n    [class.notComplited]=\"!allIsDone\"\n  >Homeworks<span *ngIf=\"allIsDone\"> complited</span><span *ngIf=\"!allIsDone\"> not complited</span></h4>\n  <ol>\n    <li\n      *ngFor=\"let homework of user.list\"\n      [class.complited]=\"homework.isCompleted\"\n      [class.notComplited]=\"!homework.isCompleted\"\n    >\n      <span>Theme: {{homework.theme}} - task: {{homework.task}}</span>\n    </li>\n  </ol>\n</div>\n"
+module.exports = "<div  *ngIf=\"user\">\r\n  <h3>{{userName}} - that's name should not change</h3>\r\n  <h4\r\n    [class.complited]=\"allIsDone\"\r\n    [class.notComplited]=\"!allIsDone\"\r\n  >Homeworks<span *ngIf=\"allIsDone\"> complited</span><span *ngIf=\"!allIsDone\"> not complited</span></h4>\r\n  <ol>\r\n    <li\r\n      *ngFor=\"let homework of user.list\"\r\n      [class.complited]=\"homework.isCompleted\"\r\n      [class.notComplited]=\"!homework.isCompleted\"\r\n    >\r\n      <span>Theme: {{homework.theme}} - task: {{homework.task}}</span>\r\n    </li>\r\n  </ol>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -185,15 +185,29 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var HomeworksComponent = /** @class */ (function () {
-    function HomeworksComponent() {
+    function HomeworksComponent(cd) {
+        this.cd = cd;
+        // this.cd.detach();
     }
+    Object.defineProperty(HomeworksComponent.prototype, "userName", {
+        get: function () {
+            return this.user.name;
+        },
+        enumerable: true,
+        configurable: true
+    });
     HomeworksComponent.prototype.ngOnInit = function () {
-        this.allIsDone = this.isGoodBoy();
     };
-    HomeworksComponent.prototype.isGoodBoy = function () {
-        this.countOfAllTasks = this.user.list.length;
-        this.countOfIsDoneTasks = this.user.list.filter(function (item) { return item.isCompleted; }).length;
-        return this.countOfAllTasks === this.countOfIsDoneTasks ? true : false;
+    HomeworksComponent.prototype.ngDoCheck = function () {
+        this.allIsDone = this.isGood(this.user);
+        // this.cd.detectChanges();
+    };
+    HomeworksComponent.prototype.isGood = function (user) {
+        if (user) {
+            var countOfAllTasks = user.list.length;
+            var countOfIsDoneTasks = user.list.filter(function (item) { return item.isCompleted; }).length;
+            return countOfAllTasks === countOfIsDoneTasks ? true : false;
+        }
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
@@ -203,9 +217,10 @@ var HomeworksComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-homeworks',
             template: __webpack_require__(/*! ./homeworks.component.html */ "./src/app/homeworks/homeworks.component.html"),
+            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
             styles: [__webpack_require__(/*! ./homeworks.component.css */ "./src/app/homeworks/homeworks.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
     ], HomeworksComponent);
     return HomeworksComponent;
 }());
@@ -247,7 +262,7 @@ var USERS = [
     new _user__WEBPACK_IMPORTED_MODULE_0__["User"]('Denis', 'Jackson', [
         new _homework__WEBPACK_IMPORTED_MODULE_1__["Homework"]('AAA', 'aaa', true),
         new _homework__WEBPACK_IMPORTED_MODULE_1__["Homework"]('BBB', 'bbb', true),
-        new _homework__WEBPACK_IMPORTED_MODULE_1__["Homework"]('BBB', 'ccc', false)
+        new _homework__WEBPACK_IMPORTED_MODULE_1__["Homework"]('BBB', 'ccc', true)
     ])
 ];
 
@@ -323,7 +338,7 @@ var User = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".users-title {\r\n  margin-bottom: 0.5em;\r\n}\r\n.users-list-item {\r\n  margin-bottom: 1em;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdXNlcnMvdXNlcnMuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLG9CQUFvQjtBQUN0QjtBQUNBO0VBQ0Usa0JBQWtCO0FBQ3BCIiwiZmlsZSI6InNyYy9hcHAvdXNlcnMvdXNlcnMuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi51c2Vycy10aXRsZSB7XHJcbiAgbWFyZ2luLWJvdHRvbTogMC41ZW07XHJcbn1cclxuLnVzZXJzLWxpc3QtaXRlbSB7XHJcbiAgbWFyZ2luLWJvdHRvbTogMWVtO1xyXG59XHJcbiJdfQ== */"
+module.exports = ".users-title {\r\n  margin-bottom: 0.5em;\r\n}\r\n.forTest:hover {\r\n  color: rebeccapurple;\r\n  cursor: pointer;\r\n}\r\n.users-list-item {\r\n  margin-bottom: 1em;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdXNlcnMvdXNlcnMuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLG9CQUFvQjtBQUN0QjtBQUNBO0VBQ0Usb0JBQW9CO0VBQ3BCLGVBQWU7QUFDakI7QUFDQTtFQUNFLGtCQUFrQjtBQUNwQiIsImZpbGUiOiJzcmMvYXBwL3VzZXJzL3VzZXJzLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIudXNlcnMtdGl0bGUge1xyXG4gIG1hcmdpbi1ib3R0b206IDAuNWVtO1xyXG59XHJcbi5mb3JUZXN0OmhvdmVyIHtcclxuICBjb2xvcjogcmViZWNjYXB1cnBsZTtcclxuICBjdXJzb3I6IHBvaW50ZXI7XHJcbn1cclxuLnVzZXJzLWxpc3QtaXRlbSB7XHJcbiAgbWFyZ2luLWJvdHRvbTogMWVtO1xyXG59XHJcbiJdfQ== */"
 
 /***/ }),
 
@@ -334,7 +349,7 @@ module.exports = ".users-title {\r\n  margin-bottom: 0.5em;\r\n}\r\n.users-list-
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2 class=\"users-title\">List of users</h2>\n<ul class=\"users-list\">\n  <li\n    *ngFor=\"let user of users\"\n    class=\"users-list-item\">\n    <h3 class=\"users-list-item-title\">{{user.name}} {{user.surname}}</h3>\n    <app-homeworks\n      class=\"users-list-item-homeworks\"\n      [user]=\"user\"\n    ></app-homeworks>\n  </li>\n</ul>\n"
+module.exports = "<h2 class=\"users-title\">List of users</h2>\r\n<ul class=\"users-list\">\r\n  <li\r\n    *ngFor=\"let user of users\"\r\n    class=\"users-list-item\">\r\n    <h3>Click to name, to test ChangeDetection.onPush</h3>\r\n    <h3 class=\"users-list-item-title forTest\" (click)=\"onClick()\">{{user.name}} {{user.surname}}</h3>\r\n    <app-homeworks\r\n      class=\"users-list-item-homeworks\"\r\n      [user]=\"user\"\r\n    ></app-homeworks>\r\n  </li>\r\n</ul>\r\n"
 
 /***/ }),
 
@@ -354,6 +369,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+// import { HomeworksComponent } from '../homeworks/homeworks.component';
 var UsersComponent = /** @class */ (function () {
     function UsersComponent(userService) {
         this.userService = userService;
@@ -366,6 +382,10 @@ var UsersComponent = /** @class */ (function () {
     };
     UsersComponent.prototype.ngOnInit = function () {
         this.getUsers();
+    };
+    UsersComponent.prototype.onClick = function () {
+        this.users.forEach(function (item) { return item.name = 'test'; });
+        this.users[3].list[0].isCompleted = false;
     };
     UsersComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
