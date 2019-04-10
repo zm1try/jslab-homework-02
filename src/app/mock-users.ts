@@ -21,27 +21,5 @@ export const USERS: User[] = [
     new Homework('AAA', 'aaa', true),
     new Homework('BBB', 'bbb', true),
     new Homework('BBB', 'ccc', true)
-  ]),
-  {
-    id: 1,
-    name: 'Test',
-    surname: 'Test',
-    list: [
-      {
-        theme: 'Test',
-        task: 'Test',
-        isCompleted: true
-      },
-      {
-        theme: 'Test',
-        task: 'Test',
-        isCompleted: true
-      },
-      {
-        theme: 'Test',
-        task: 'Test',
-        isCompleted: true
-      }
-    ]
-  }
+  ])
 ];
