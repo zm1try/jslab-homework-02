@@ -3,7 +3,8 @@
   <li
     *ngFor="let user of users"
     class="users-list-item">
-    <h3 class="users-list-item-title">{{user.name}} {{user.surname}}</h3>
+    <h3>Click to name, to test ChangeDetection.onPush</h3>
+    <h3 class="users-list-item-title forTest" (click)="onClick()">{{user.name}} {{user.surname}}</h3>
     <app-homeworks
       class="users-list-item-homeworks"
       [user]="user"

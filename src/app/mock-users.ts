@@ -20,6 +20,6 @@ export const USERS: User[] = [
   new User('Denis', 'Jackson', [
     new Homework('AAA', 'aaa', true),
     new Homework('BBB', 'bbb', true),
-    new Homework('BBB', 'ccc', false)
+    new Homework('BBB', 'ccc', true)
   ])
 ];
